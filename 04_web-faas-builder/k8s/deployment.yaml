@@ -1,0 +1,95 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: blue-faas
+  namespace: blue-faas
+  labels:
+    app.kubernetes.io/name: blue-faas
+    app.kubernetes.io/component: api-server
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: blue-faas
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: blue-faas
+        app.kubernetes.io/component: api-server
+    spec:
+      serviceAccountName: blue-faas-sa
+
+      # Build node scheduling (c7i compute-optimized for componentize-py builds)
+      nodeSelector:
+        build: "true"
+      tolerations:
+        - key: "build"
+          operator: "Equal"
+          value: "true"
+          effect: "NoSchedule"
+      
+      containers:
+        - name: blue-faas
+          image: 217350599014.dkr.ecr.ap-northeast-2.amazonaws.com/blue-final-faas-builder:latest
+          imagePullPolicy: Always
+          
+          ports:
+            - name: http
+              containerPort: 8000
+              protocol: TCP
+          
+          # Environment variables from ConfigMap
+          envFrom:
+            - configMapRef:
+                name: blue-faas-config
+          
+          # Additional environment variables
+          env:
+            # IRSA automatically injects these via webhook:
+            # - AWS_ROLE_ARN
+            # - AWS_WEB_IDENTITY_TOKEN_FILE
+            - name: AWS_DEFAULT_REGION
+              valueFrom:
+                configMapKeyRef:
+                  name: blue-faas-config
+                  key: AWS_REGION
+          
+          resources:
+            requests:
+              cpu: "2"
+              memory: "4Gi"
+            limits:
+              cpu: "2500m"
+              memory: "6Gi"
+          
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: http
+            initialDelaySeconds: 10
+            periodSeconds: 30
+            timeoutSeconds: 5
+            failureThreshold: 3
+          
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: http
+            initialDelaySeconds: 5
+            periodSeconds: 10
+            timeoutSeconds: 3
+            failureThreshold: 3
+          
+          securityContext:
+            runAsNonRoot: true
+            runAsUser: 1000
+            readOnlyRootFilesystem: false
+            allowPrivilegeEscalation: false
+          
+          volumeMounts:
+            - name: tmp
+              mountPath: /tmp
+      
+      volumes:
+        - name: tmp
+          emptyDir: {}

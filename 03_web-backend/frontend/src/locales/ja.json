@@ -1,0 +1,217 @@
+{
+  "app": {
+     "title": "Yoitang",
+    "myAccount": "マイアカウント",
+    "profile": "プロフィール",
+    "settings": "設定",
+    "signOut": "ログアウト"
+  },
+  "landing": {
+    "hero": {
+      "title": "Serverless Functions, simplified",
+      "subtitle": "Python関数を作成し、HTTPエンドポイントを即座に取得し、1つのコンソールで実行を監視します。"
+    },
+    "workspaces": {
+      "title": "ワークスペース",
+      "description": "サーバーレス関数をワークスペースに整理する",
+      "createButton": "ワークスペースを作成",
+      "emptyTitle": "まだワークスペースがありません",
+      "emptyDescription": "最初のワークスペースを作成してサーバーレス関数の構築を開始します。ワークスペースは環境またはプロジェクトごとに関数を整理および管理するのに役立ちます。",
+      "emptyAction": "最初のワークスペースを作成",
+      "functions": "個の関数",
+      "functionsCount": "個の関数",
+      "createdAt": "作成日",
+      "invocations24h": "呼び出し (24時間)",
+      "errorRate": "エラー率"
+    },
+    "createDialog": {
+      "title": "ワークスペースを作成",
+      "description": "サーバーレス関数を整理するための新しいワークスペースを作成します。",
+      "nameLabel": "ワークスペース名 *",
+      "namePlaceholder": "プロダクション、開発など",
+      "descriptionLabel": "説明",
+      "descriptionPlaceholder": "オプションのワークスペース説明",
+      "cancel": "キャンセル",
+      "create": "ワークスペースを作成",
+      "nameRequired": "ワークスペース名を入力してください",
+      "success": "ワークスペースが作成されました"
+    }
+  },
+  "workspace": {
+    "notFound": "ワークスペースが見つかりません",
+    "createFunction": "関数を作成",
+    "metrics": {
+      "totalFunctions": "総関数数",
+      "activeAndDisabled": "アクティブおよび無効",
+      "invocations": "呼び出し",
+      "errorRate": "エラー率",
+      "avgDuration": "平均時間",
+      "last24h": "過去24時間",
+      "acrossAll": "すべての関数"
+    },
+    "recentActivity": {
+      "title": "最近のアクティビティ",
+      "description": "このワークスペースの最新の関数実行",
+      "noActivity": "最近のアクティビティはありません",
+      "time": "時間",
+      "function": "関数",
+      "status": "ステータス",
+      "duration": "所要時間"
+    },
+    "nav": {
+      "overview": "概要",
+      "functions": "関数",
+      "settings": "設定"
+    }
+  },
+  "functions": {
+    "title": "関数",
+    "description": "サーバーレス関数を管理",
+    "newFunction": "新しい関数",
+    "searchPlaceholder": "関数を検索...",
+    "emptyTitle": "まだ関数がありません",
+    "emptyDescription": "最初の関数を作成して開始します。各関数には、どこからでも呼び出すことができる独自のHTTPエンドポイントがあります。",
+    "emptyAction": "最初の関数を作成",
+    "noMatch": "検索に一致する関数がありません",
+    "table": {
+      "name": "名前",
+      "runtime": "ランタイム",
+      "status": "ステータス",
+      "invocations24h": "呼び出し (24h)",
+      "lastModified": "最終更新"
+    },
+    "actions": {
+      "disable": "無効にする",
+      "enable": "有効にする",
+      "delete": "削除",
+      "deleteConfirm": "本当に「{{name}}」を削除しますか？",
+      "deleteSuccess": "関数が削除されました",
+      "statusSuccess": "関数が{{status}}されました",
+      "enabled": "有効化",
+      "disabled": "無効化"
+    }
+  },
+  "newFunction": {
+    "title": "関数を作成",
+    "description": "新しいPythonサーバーレス関数を設定",
+    "basicInfo": {
+      "title": "基本情報",
+      "description": "必須の関数詳細",
+      "nameLabel": "関数名 *",
+      "namePlaceholder": "my-function",
+      "descriptionLabel": "説明",
+      "descriptionPlaceholder": "この関数は何をしますか？",
+      "runtime": "ランタイム",
+      "otherLanguages": "他の言語は近日公開"
+    },
+    "httpConfig": {
+      "title": "HTTP設定",
+      "description": "この関数が処理するメソッドは？"
+    },
+    "resourceConfig": {
+      "title": "リソース設定",
+      "description": "メモリとタイムアウトの設定",
+      "memory": "メモリ",
+      "timeout": "タイムアウト (秒)"
+    },
+    "envVars": {
+      "title": "環境変数",
+      "description": "ランタイムで使用可能なキーと値のペア",
+      "keyPlaceholder": "KEY",
+      "valuePlaceholder": "値",
+      "addButton": "変数を追加"
+    },
+    "code": {
+      "title": "関数コード",
+      "description": "Python関数ハンドラーを作成します。ハンドラーはeventとcontextパラメータを受け取ります。"
+    },
+    "actions": {
+      "cancel": "キャンセル",
+      "create": "関数を作成",
+      "nameRequired": "関数名が必要です",
+      "methodRequired": "少なくとも1つのHTTPメソッドを選択してください",
+      "success": "関数が作成されました"
+    }
+  },
+  "functionDetail": {
+    "notFound": "関数が見つかりません",
+    "deleteButton": "関数を削除",
+    "deleteConfirm": "本当に「{{name}}」を削除しますか？",
+    "deleteSuccess": "関数が削除されました",
+    "tabs": {
+      "overview": "概要",
+      "test": "テストと実行",
+      "logs": "ログ",
+      "code": "コード"
+    },
+    "endpoint": {
+      "title": "HTTPエンドポイント",
+      "description": "このURLで関数にアクセスできます",
+      "copied": "エンドポイントURLがクリップボードにコピーされました",
+      "allowedMethods": "許可されたメソッド"
+    },
+    "configuration": {
+      "title": "設定",
+      "runtime": "ランタイム",
+      "memory": "メモリ",
+      "timeout": "タイムアウト",
+      "lastDeployed": "最後のデプロイ",
+      "never": "なし"
+    },
+    "test": {
+      "request": "リクエスト",
+      "requestDescription": "関数をテストするためのJSON リクエストボディを入力",
+      "invokeButton": "関数を呼び出す",
+      "invoking": "呼び出し中...",
+      "response": "レスポンス",
+      "responseDescription": "ステータス: {{statusCode}} | 所要時間: {{duration}}ms",
+      "logs": "ログ",
+      "disabledError": "無効な関数を呼び出すことはできません",
+      "invalidJson": "リクエストボディのJSONが無効です",
+      "success": "関数が正常に呼び出されました"
+    },
+    "logs": {
+      "title": "実行ログ",
+      "description": "最近の関数呼び出し",
+      "noLogs": "まだログがありません",
+      "timestamp": "タイムスタンプ",
+      "status": "ステータス",
+      "duration": "所要時間",
+      "statusCode": "ステータスコード"
+    },
+    "code": {
+      "title": "関数コード",
+      "description": "関数の実装を表示"
+    }
+  },
+  "workspaceSettings": {
+    "title": "設定",
+    "description": "ワークスペース設定を管理",
+    "notFound": "ワークスペースが見つかりません",
+    "details": {
+      "title": "ワークスペースの詳細",
+      "description": "ワークスペース情報を更新",
+      "nameLabel": "ワークスペース名",
+      "descriptionLabel": "説明",
+      "saveButton": "変更を保存",
+      "nameRequired": "ワークスペース名が必要です",
+      "success": "ワークスペースが更新されました"
+    },
+    "danger": {
+      "title": "危険ゾーン",
+      "description": "元に戻せないアクション",
+      "deleteTitle": "ワークスペースを削除",
+      "deleteDescription": "このワークスペースとすべての関数を完全に削除します。このアクションは元に戻すことができません。",
+      "deleteButton": "ワークスペースを削除",
+      "deleteConfirm": "本当に「{{name}}」を削除しますか？このワークスペースのすべての関数も削除されます。",
+      "deleteSuccess": "ワークスペースが削除されました"
+    }
+  },
+  "common": {
+    "success": "成功",
+    "error": "エラー",
+    "active": "アクティブ",
+    "disabled": "無効",
+    "unknown": "不明"
+  }
+}

@@ -1,0 +1,17 @@
+spin_manifest_version = 2
+
+[application]
+name = "echo-app"
+version = "0.1.0"
+authors = ["Example"]
+description = "A simple echo application for Python WASM Deploy"
+
+[[trigger.http]]
+route = "/..."
+component = "echo-app"
+
+[component.echo-app]
+source = "app.wasm"
+[component.echo-app.build]
+command = "componentize-py -w spin-http componentize app -o app.wasm"
+watch = ["*.py", "requirements.txt"]

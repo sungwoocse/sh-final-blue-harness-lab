@@ -1,0 +1,30 @@
+apiVersion: core.spinkube.dev/v1alpha1
+kind: SpinApp
+metadata:
+  name: test-spot-spinapp
+  namespace: default
+  labels:
+    app.kubernetes.io/managed-by: blue-faas
+    test: "spot-enabled"
+spec:
+  image: "ghcr.io/spinkube/containerd-shim-spin/examples/spin-rust-hello:v0.13.0"
+  executor: containerd-shim-spin
+  enableAutoscaling: true
+  podLabels:
+    faas: "true"
+    spot-test: "true"
+  # 아래 필드들은 SpinApp CRD에 존재하지 않음 - 문제의 원인!
+  tolerations:
+  - key: spot
+    operator: Exists
+    effect: NoSchedule
+  affinity:
+    nodeAffinity:
+      preferredDuringSchedulingIgnoredDuringExecution:
+      - weight: 100
+        preference:
+          matchExpressions:
+          - key: spot
+            operator: In
+            values:
+            - "true"

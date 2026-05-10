@@ -1,0 +1,217 @@
+{
+  "app": {
+     "title": "Yoitang",
+    "myAccount": "My Account",
+    "profile": "Profile",
+    "settings": "Settings",
+    "signOut": "Sign out"
+  },
+  "landing": {
+    "hero": {
+      "title": "Serverless Functions, simplified",
+      "subtitle": "Create Python functions, get an HTTP endpoint instantly, and monitor executions in one console."
+    },
+    "workspaces": {
+      "title": "Workspaces",
+      "description": "Organize your serverless functions into workspaces",
+      "createButton": "Create workspace",
+      "emptyTitle": "No workspaces yet",
+      "emptyDescription": "Create your first workspace to start building serverless functions. Workspaces help you organize and manage your functions by environment or project.",
+      "emptyAction": "Create your first workspace",
+      "functions": "functions",
+      "functionsCount": "function",
+      "createdAt": "Created",
+      "invocations24h": "invocations (24h)",
+      "errorRate": "error rate"
+    },
+    "createDialog": {
+      "title": "Create workspace",
+      "description": "Create a new workspace to organize your serverless functions.",
+      "nameLabel": "Workspace name *",
+      "namePlaceholder": "Production, Development, etc.",
+      "descriptionLabel": "Description",
+      "descriptionPlaceholder": "Optional workspace description",
+      "cancel": "Cancel",
+      "create": "Create workspace",
+      "nameRequired": "Please enter a workspace name",
+      "success": "Workspace created successfully"
+    }
+  },
+  "workspace": {
+    "notFound": "Workspace not found",
+    "createFunction": "Create function",
+    "metrics": {
+      "totalFunctions": "Total Functions",
+      "activeAndDisabled": "Active and disabled",
+      "invocations": "Invocations",
+      "errorRate": "Error Rate",
+      "avgDuration": "Avg Duration",
+      "last24h": "Last 24 hours",
+      "acrossAll": "Across all functions"
+    },
+    "recentActivity": {
+      "title": "Recent Activity",
+      "description": "Latest function executions in this workspace",
+      "noActivity": "No recent activity",
+      "time": "Time",
+      "function": "Function",
+      "status": "Status",
+      "duration": "Duration"
+    },
+    "nav": {
+      "overview": "Overview",
+      "functions": "Functions",
+      "settings": "Settings"
+    }
+  },
+  "functions": {
+    "title": "Functions",
+    "description": "Manage your serverless functions",
+    "newFunction": "New function",
+    "searchPlaceholder": "Search functions...",
+    "emptyTitle": "No functions yet",
+    "emptyDescription": "Create your first function to get started. Each function gets its own HTTP endpoint that you can call from anywhere.",
+    "emptyAction": "Create your first function",
+    "noMatch": "No functions match your search",
+    "table": {
+      "name": "Name",
+      "runtime": "Runtime",
+      "status": "Status",
+      "invocations24h": "Invocations (24h)",
+      "lastModified": "Last Modified"
+    },
+    "actions": {
+      "disable": "Disable",
+      "enable": "Enable",
+      "delete": "Delete",
+      "deleteConfirm": "Are you sure you want to delete \"{{name}}\"?",
+      "deleteSuccess": "Function deleted successfully",
+      "statusSuccess": "Function {{status}}",
+      "enabled": "enabled",
+      "disabled": "disabled"
+    }
+  },
+  "newFunction": {
+    "title": "Create function",
+    "description": "Configure your new Python serverless function",
+    "basicInfo": {
+      "title": "Basic Information",
+      "description": "Essential function details",
+      "nameLabel": "Function name *",
+      "namePlaceholder": "my-function",
+      "descriptionLabel": "Description",
+      "descriptionPlaceholder": "What does this function do?",
+      "runtime": "Runtime",
+      "otherLanguages": "Other languages coming soon"
+    },
+    "httpConfig": {
+      "title": "HTTP Configuration",
+      "description": "Which methods should this function handle?"
+    },
+    "resourceConfig": {
+      "title": "Resource Configuration",
+      "description": "Memory and timeout settings",
+      "memory": "Memory",
+      "timeout": "Timeout (seconds)"
+    },
+    "envVars": {
+      "title": "Environment Variables",
+      "description": "Key-value pairs available at runtime",
+      "keyPlaceholder": "KEY",
+      "valuePlaceholder": "value",
+      "addButton": "Add variable"
+    },
+    "code": {
+      "title": "Function Code",
+      "description": "Write your Python function handler. The handler receives event and context parameters."
+    },
+    "actions": {
+      "cancel": "Cancel",
+      "create": "Create function",
+      "nameRequired": "Function name is required",
+      "methodRequired": "Select at least one HTTP method",
+      "success": "Function created successfully"
+    }
+  },
+  "functionDetail": {
+    "notFound": "Function not found",
+    "deleteButton": "Delete function",
+    "deleteConfirm": "Are you sure you want to delete \"{{name}}\"?",
+    "deleteSuccess": "Function deleted",
+    "tabs": {
+      "overview": "Overview",
+      "test": "Test & Run",
+      "logs": "Logs",
+      "code": "Code"
+    },
+    "endpoint": {
+      "title": "HTTP Endpoint",
+      "description": "Your function is accessible at this URL",
+      "copied": "Endpoint URL copied to clipboard",
+      "allowedMethods": "Allowed methods"
+    },
+    "configuration": {
+      "title": "Configuration",
+      "runtime": "Runtime",
+      "memory": "Memory",
+      "timeout": "Timeout",
+      "lastDeployed": "Last deployed",
+      "never": "Never"
+    },
+    "test": {
+      "request": "Request",
+      "requestDescription": "Enter JSON request body to test your function",
+      "invokeButton": "Invoke function",
+      "invoking": "Invoking...",
+      "response": "Response",
+      "responseDescription": "Status: {{statusCode}} | Duration: {{duration}}ms",
+      "logs": "Logs",
+      "disabledError": "Cannot invoke disabled function",
+      "invalidJson": "Invalid JSON in request body",
+      "success": "Function invoked successfully"
+    },
+    "logs": {
+      "title": "Execution Logs",
+      "description": "Recent function invocations",
+      "noLogs": "No logs yet",
+      "timestamp": "Timestamp",
+      "status": "Status",
+      "duration": "Duration",
+      "statusCode": "Status Code"
+    },
+    "code": {
+      "title": "Function Code",
+      "description": "View your function implementation"
+    }
+  },
+  "workspaceSettings": {
+    "title": "Settings",
+    "description": "Manage workspace settings",
+    "notFound": "Workspace not found",
+    "details": {
+      "title": "Workspace Details",
+      "description": "Update your workspace information",
+      "nameLabel": "Workspace name",
+      "descriptionLabel": "Description",
+      "saveButton": "Save changes",
+      "nameRequired": "Workspace name is required",
+      "success": "Workspace updated successfully"
+    },
+    "danger": {
+      "title": "Danger Zone",
+      "description": "Irreversible actions",
+      "deleteTitle": "Delete workspace",
+      "deleteDescription": "Permanently delete this workspace and all its functions. This action cannot be undone.",
+      "deleteButton": "Delete workspace",
+      "deleteConfirm": "Are you sure you want to delete \"{{name}}\"? This will also delete all functions in this workspace.",
+      "deleteSuccess": "Workspace deleted"
+    }
+  },
+  "common": {
+    "success": "success",
+    "error": "error",
+    "active": "active",
+    "disabled": "disabled",
+    "unknown": "Unknown"
+  }
+}

@@ -1,0 +1,46 @@
+# SSH Keys
+id_rsa
+id_rsa.pub
+*.pem
+*.key
+
+# Sensitive/Temporary files
+bucket.txt
+kops.txt
+out.json
+dry-run.yaml
+
+# Kubernetes configs (if any)
+kubeconfig
+config.yaml
+.kube/
+
+# IAM policies with account IDs
+iam-policy.json
+trust-policy.json
+
+# AWS credentials
+.aws/
+credentials
+*.credentials
+
+# Terraform (if used)
+.terraform/
+*.tfstate
+*.tfstate.*
+*.tfvars
+
+# Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+values.yaml

@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>API Spec Viewer</title>
+  <link rel="stylesheet" href="https://unpkg.com/swagger-ui-dist@5.11.0/swagger-ui.css">
+  <style>
+    body {
+      font-family: sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+    #header {
+      background: #f5f5f5;
+      padding: 20px;
+      border-bottom: 2px solid #ddd;
+    }
+    h1 {
+      color: #333;
+      margin: 0 0 10px 0;
+    }
+    .info {
+      color: #666;
+      font-size: 14px;
+    }
+    .folder-section {
+      border: 1px solid #ddd;
+      padding: 15px;
+      margin: 15px 20px;
+      border-radius: 5px;
+      background: #fafafa;
+    }
+    .folder-section h2 {
+      margin-top: 0;
+      color: #0066cc;
+    }
+    button {
+      margin: 5px 5px 0 0;
+      padding: 10px 15px;
+      font-size: 14px;
+      cursor: pointer;
+      background: #0066cc;
+      color: white;
+      border: none;
+      border-radius: 4px;
+    }
+    button:hover {
+      background: #004c99;
+    }
+    #swagger-ui {
+      display: none;
+      margin-top: 20px;
+    }
+    #api-list {
+      padding-bottom: 20px;
+    }
+    .back-button {
+      margin: 20px;
+      display: none;
+    }
+    .swagger-ui .topbar {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div id="header">
+    <h1>API Spec Viewer</h1>
+    <p class="info">
+      <strong>Production API</strong>: <a href="https://api.eunha.icu/docs" target="_blank">https://api.eunha.icu/docs</a><br>
+      <strong>Local Development</strong>: <a href="http://localhost:8000/docs" target="_blank">http://localhost:8000/docs</a><br>
+      Click a YAML button below to view offline API docs in Swagger UI.<br>
+      <em>Serve this folder (e.g., <code>python -m http.server 8000</code>) before opening the viewer.</em>
+    </p>
+  </div>
+
+  <div id="api-list">
+    <div class="folder-section">
+      <h2>FaaS Backend API (v2.0)</h2>
+      <p>
+        <strong>Production</strong>: https://api.eunha.icu (ArgoCD auto-deploy)<br>
+        <strong>Builder Service</strong>: https://builder.eunha.icu<br>
+        <strong>Status</strong>: ✅ Core Services Integration Completed (2025-12-07)
+      </p>
+      <p>
+        <strong>Features:</strong>
+        <ul style="margin: 10px 0; padding-left: 20px;">
+          <li>Workspace & Function Management</li>
+          <li>Build & Deploy Spin Applications (Python → WASM)</li>
+          <li>ECR Integration with IRSA Support (optional credentials)</li>
+          <li>Kubernetes SpinApp Deployment with function_id labeling</li>
+          <li>Execution Logs via Loki & Prometheus</li>
+        </ul>
+      </p>
+      <p>
+        <strong>Latest Changes (2025-12-07):</strong>
+        <ul style="margin: 10px 0; padding-left: 20px;">
+          <li>✨ Updated API specification to the latest version.</li>
+          <li>✨ IRSA Support: <code>username</code> and <code>password</code> are now optional</li>
+          <li>✨ Status Compatibility: Supports both "completed" and "done" from Builder Service</li>
+          <li>✨ function_id: Deploy API now supports function_id for log filtering</li>
+        </ul>
+      </p>
+      <button onclick="loadSwagger('apiSpec/faas-backend/faas-api.yaml')">View Offline Spec (faas-api.yaml)</button>
+      <button onclick="window.open('https://api.eunha.icu/docs', '_blank')" style="background: #28a745;">View Production API (Live)</button>
+    </div>
+  </div>
+
+  <button class="back-button" id="backButton" onclick="goBack()">Back to list</button>
+  <div id="swagger-ui"></div>
+
+  <script src="https://unpkg.com/swagger-ui-dist@5.11.0/swagger-ui-bundle.js"></script>
+  <script src="https://unpkg.com/swagger-ui-dist@5.11.0/swagger-ui-standalone-preset.js"></script>
+  <script>
+    let currentUI = null;
+
+    function loadSwagger(yamlPath) {
+      document.getElementById('api-list').style.display = 'none';
+      document.getElementById('swagger-ui').style.display = 'block';
+      document.getElementById('backButton').style.display = 'block';
+
+      const fullYamlUrl = window.location.origin + '/' + yamlPath;
+
+      currentUI = SwaggerUIBundle({
+        url: fullYamlUrl,
+        dom_id: '#swagger-ui',
+        deepLinking: true,
+        presets: [
+          SwaggerUIBundle.presets.apis,
+          SwaggerUIStandalonePreset
+        ],
+        layout: 'StandaloneLayout'
+      });
+    }
+
+    function goBack() {
+      document.getElementById('api-list').style.display = 'block';
+      document.getElementById('swagger-ui').style.display = 'none';
+      document.getElementById('backButton').style.display = 'none';
+    }
+  </script>
+</body>
+</html>

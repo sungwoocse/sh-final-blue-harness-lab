@@ -1,0 +1,15 @@
+{{- if .Values.serviceAccount.create -}}
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: {{ include "web-backend.fullname" . }}
+  namespace: default
+subjects:
+  - kind: ServiceAccount
+    name: {{ include "web-backend.serviceAccountName" . }}
+    namespace: {{ .Release.Namespace }}
+roleRef:
+  kind: Role
+  name: {{ include "web-backend.fullname" . }}
+  apiGroup: rbac.authorization.k8s.io
+{{- end }}

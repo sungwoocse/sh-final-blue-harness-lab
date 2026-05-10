@@ -1,0 +1,16 @@
+spin_manifest_version = 2
+
+[application]
+name = "python-hello"
+version = "0.1.0"
+authors = ["Test"]
+description = "A simple Python Spin application"
+
+[[trigger.http]]
+route = "/..."
+component = "python-hello"
+
+[component.python-hello]
+source = "app.wasm"
+[component.python-hello.build]
+command = "componentize-py -w spin-http componentize app -o app.wasm"

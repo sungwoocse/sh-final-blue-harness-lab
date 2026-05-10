@@ -1,0 +1,11 @@
+{{- if .Values.serviceAccount.create -}}
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: {{ include "web-backend.fullname" . }}
+  namespace: default
+rules:
+  - apiGroups: ["core.spinwasm.org", "core.spinkube.dev"]
+    resources: ["spinapps"]
+    verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
+{{- end }}

@@ -1,0 +1,62 @@
+a# ===========================================
+# Terraform 관련 파일들
+# ===========================================
+
+# Terraform 캐시,임시,상태 파일들
+**/.terraform/*
+*.tfstate
+*.tfstate.*
+*.tfplan
+*.tfbackend
+./terraform
+.terraform.lock.hcl
+# ===========================================
+# 로그 파일들
+# ===========================================
+
+# Terraform 및 시스템 로그
+crash.log
+crash.*.log
+
+# ===========================================
+# 보안 및 민감한 파일들
+# ===========================================
+
+# 비밀 키, 인증 정보 등
+secret/*
+SETUP-CREDENTIALS.md
+terraform-state-policy.json
+*-credentials.json
+
+# Terraform 변수 파일 (민감한 변수 포함 가능)
+*.tfvars
+*.tfvars.json
+*.tfplan.test
+tfplan.test
+
+# act secrets
+.secrets
+
+# SSH Keys
+ssh-keys/
+*.pem
+*.key
+id_rsa*
+
+# ===========================================
+# IDE 및 에디터 관련 파일들
+# ===========================================
+
+# Cursor IDE 설정 파일들
+.cursor/CLAUDE.md
+.cursor
+.claude/
+CLAUDE.md
+
+# Docs (Blue/Green deployment guide is tracked)
+# docs/
+
+# 파이썬 가상환경
+.venv
+venv
+tfplan

@@ -1,0 +1,39 @@
+# Helm
+*.tgz
+charts/*.tgz
+charts/**/charts/*.tgz
+
+# Helm dependency lock files
+Chart.lock
+
+# Helm package output
+*.tar.gz
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Temporary files
+*.tmp
+*.bak
+*.log
+
+# Secrets (never commit these)
+**/secrets.yaml
+**/secrets-*.yaml
+**/*-secrets.yaml
+values-secret*.yaml
+
+# Local values overrides
+values-local.yaml
+values.local.yaml
+
+# Helm debug output
+debug/

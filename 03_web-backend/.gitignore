@@ -1,0 +1,8 @@
+# Claude Code settings
+.claude/
+
+# # Reference folder
+# reference/
+
+# Ignore builder source drop
+web-faas-builder-main/

@@ -1,0 +1,11 @@
+.DS_Store
+node_modules/
+dist/
+build/
+.venv/
+venv/
+*.pyc
+__pycache__/
+legacy_snapshot/
+.agents/
+.codex/

@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: blue-faas-config
+  namespace: blue-faas
+  labels:
+    app.kubernetes.io/name: blue-faas
+data:
+  # DynamoDB table name
+  DYNAMODB_TABLE_NAME: "sfbank-blue-FaaSData"
+  # S3 bucket for source code and build artifacts
+  S3_BUCKET_NAME: "sfbank-blue-functions-code-bucket"
+  # Spin Python venv template path (inside container)
+  SPIN_PYTHON_VENV_TEMPLATE: "/opt/spin-python-venv"
+  # AWS Region
+  AWS_REGION: "ap-northeast-2"
+  # Log level
+  LOG_LEVEL: "INFO"
+  # Core Service endpoint (empty = use mock)
+  CORE_SERVICE_ENDPOINT: ""
+  # ECR registry URL for SpinApp images
+  ECR_REGISTRY_URL: "217350599014.dkr.ecr.ap-northeast-2.amazonaws.com/blue-final-faas-app"

@@ -1,0 +1,12 @@
+apiVersion: core.spinkube.dev/v1alpha1
+kind: SpinApp
+metadata:
+  name: spin-rust-hello
+  namespace: default
+spec:
+  enableAutoscaling: false
+  executor: containerd-shim-spin
+  image: ghcr.io/spinkube/containerd-shim-spin/examples/spin-rust-hello:v0.15.1
+  replicas: 20
+  resources: {}
+  runtimeConfig: {}

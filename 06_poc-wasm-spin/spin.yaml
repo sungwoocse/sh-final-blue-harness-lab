@@ -1,0 +1,12 @@
+apiVersion: core.spinkube.dev/v1alpha1
+kind: SpinApp
+metadata:
+  name: test-python
+  namespace: default
+spec:
+  enableAutoscaling: false
+  executor: containerd-shim-spin
+  image: docker.io/galaxyeunha0530/wasm-test:70c8b35f-3cde-4fa2-a275-eb92e1ff8364
+  replicas: 2
+  resources: {}
+  runtimeConfig: {}

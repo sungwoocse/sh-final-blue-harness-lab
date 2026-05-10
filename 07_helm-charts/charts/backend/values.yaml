@@ -1,0 +1,148 @@
+# Backend Helm Chart Values
+
+replicaCount: 1
+
+image:
+  repository: 217350599014.dkr.ecr.ap-northeast-2.amazonaws.com/faas-backend
+  tag: latest
+  pullPolicy: Always
+
+# Container settings
+containerPort: 8000
+
+# Resource limits and requests
+resources:
+  requests:
+    cpu: "500m"
+    memory: "512Mi"
+  limits:
+    cpu: "500m"
+    memory: "512Mi"
+
+# Service configuration
+service:
+  enabled: true
+  type: ClusterIP
+  port: 80
+  targetPort: 8000
+
+# Ingress configuration
+ingress:
+  enabled: false
+  className: "nginx"
+  annotations: {}
+    # kubernetes.io/ingress.class: nginx
+    # kubernetes.io/tls-acme: "true"
+  hosts:
+    - host: backend.local
+      paths:
+        - path: /
+          pathType: Prefix
+  tls: []
+  #  - secretName: backend-tls
+  #    hosts:
+  #      - backend.local
+
+# Pod labels and annotations
+podAnnotations: {}
+podLabels: {}
+
+# Security context
+securityContext: {}
+  # runAsUser: 1000
+  # runAsGroup: 1000
+  # fsGroup: 1000
+
+# Tolerations for pod scheduling
+tolerations: []
+# - key: "node-type"
+#   operator: "Equal"
+#   value: "backend"
+#   effect: "NoSchedule"
+
+# Node selector
+nodeSelector: {}
+# node-type: backend
+
+# Affinity rules
+affinity: {}
+# nodeAffinity:
+#   requiredDuringSchedulingIgnoredDuringExecution:
+#     nodeSelectorTerms:
+#     - matchExpressions:
+#       - key: node-type
+#         operator: In
+#         values:
+#         - backend
+# podAffinity:
+#   preferredDuringSchedulingIgnoredDuringExecution:
+#   - weight: 100
+#     podAffinityTerm:
+#       labelSelector:
+#         matchExpressions:
+#         - key: app
+#           operator: In
+#           values:
+#           - backend
+#       topologyKey: kubernetes.io/hostname
+# podAntiAffinity:
+#   requiredDuringSchedulingIgnoredDuringExecution:
+#   - labelSelector:
+#       matchExpressions:
+#       - key: app
+#         operator: In
+#         values:
+#         - backend
+#     topologyKey: kubernetes.io/hostname
+
+# Environment variables
+env: []
+# - name: DATABASE_URL
+#   value: "postgresql://localhost:5432/db"
+# - name: SECRET_KEY
+#   valueFrom:
+#     secretKeyRef:
+#       name: backend-secrets
+#       key: secret-key
+
+# ConfigMap to mount as environment variables
+envFrom: []
+# - configMapRef:
+#     name: backend-config
+# - secretRef:
+#     name: backend-secrets
+
+# Liveness and readiness probes
+livenessProbe:
+  enabled: true
+  httpGet:
+    path: /health
+    port: 8000
+  initialDelaySeconds: 30
+  periodSeconds: 10
+  timeoutSeconds: 5
+  failureThreshold: 3
+
+readinessProbe:
+  enabled: true
+  httpGet:
+    path: /health
+    port: 8000
+  initialDelaySeconds: 5
+  periodSeconds: 10
+  timeoutSeconds: 5
+  failureThreshold: 3
+
+# Service account
+serviceAccount:
+  create: false
+  name: ""
+  annotations: {}
+
+# Image pull secrets
+imagePullSecrets: []
+# - name: ecr-registry-secret
+
+# Name overrides
+nameOverride: ""
+fullnameOverride: ""

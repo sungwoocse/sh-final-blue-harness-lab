@@ -1,0 +1,234 @@
+apiVersion: kops.k8s.io/v1alpha2
+kind: Cluster
+metadata:
+  name: sfbank-blue.k8s.local
+spec:
+  api:
+    loadBalancer:
+      class: Network
+      type: Public
+  authorization:
+    rbac: {}
+  channel: stable
+  cloudProvider: aws
+  cloudConfig:
+    awsEBSCSIDriver:
+      enabled: true
+  configBase: s3://sfbank-blue-kops-state-store/sfbank-blue.k8s.local
+  etcdClusters:
+  - cpuRequest: 200m
+    etcdMembers:
+    - encryptedVolume: true
+      instanceGroup: control-plane-ap-northeast-2c
+      name: c
+    manager:
+      backupRetentionDays: 90
+    memoryRequest: 100Mi
+    name: main
+  - cpuRequest: 100m
+    etcdMembers:
+    - encryptedVolume: true
+      instanceGroup: control-plane-ap-northeast-2c
+      name: c
+    manager:
+      backupRetentionDays: 90
+    memoryRequest: 100Mi
+    name: events
+  iam:
+    allowContainerRegistry: true
+    legacy: false
+    useServiceAccountExternalPermissions: true
+  clusterAutoscaler:
+    enabled: true
+    balanceSimilarNodeGroups: true
+    scaleDownUtilizationThreshold: "0.5"
+  kubeProxy:
+    enabled: false
+  kubelet:
+    anonymousAuth: false
+  kubernetesApiAccess:
+  - 0.0.0.0/0
+  kubernetesVersion: 1.33.6
+  networkCIDR: 10.180.0.0/20
+  networkID: vpc-03b6863c762b38258
+  networking:
+    cilium:
+      enableNodePort: true
+  nonMasqueradeCIDR: 100.64.0.0/10
+  serviceAccountIssuerDiscovery:
+    discoveryStore: s3://sfbank-blue-kops-oidc-store/sfbank-blue.k8s.local/discovery/sfbank-blue.k8s.local
+    enableAWSOIDCProvider: true
+  sshAccess:
+  - 0.0.0.0/0
+  subnets:
+  - id: subnet-0cefb29d9b482ea5b
+    name: public-ap-northeast-2a
+    type: Public
+    zone: ap-northeast-2a
+  - id: subnet-0e40cf24e2078751b
+    name: public-ap-northeast-2c
+    type: Public
+    zone: ap-northeast-2c
+  - id: subnet-04ab7aec5b223bcfd
+    name: private-ap-northeast-2a
+    type: Private
+    zone: ap-northeast-2a
+    egress: nat
+  - id: subnet-058bb3aeee42e3ae4
+    name: private-ap-northeast-2c
+    type: Private
+    zone: ap-northeast-2c
+    egress: nat
+  certManager:
+    enabled: true
+  podIdentityWebhook:
+    enabled: true
+  awsLoadBalancerController:
+    enabled: true
+    cpuRequest: "100m"
+    cpuLimit: "200m"
+    memoryRequest: "200Mi"
+    memoryLimit: "500Mi"
+  metricsServer:
+    enabled: true
+    insecure: false
+  topology:
+    dns:
+      type: None
+  additionalPolicies:
+    node: |
+      [
+        {
+          "Effect": "Allow",
+          "Action": [
+            "s3:GetObject",
+            "s3:PutObject",
+            "s3:DeleteObject",
+            "s3:ListBucket"
+          ],
+          "Resource": [
+            "arn:aws:s3:::kops-test-bucket-sfbank-1764573118",
+            "arn:aws:s3:::kops-test-bucket-sfbank-1764573118/*"
+          ]
+        }
+      ]
+
+---
+# Control Plane (ARM64)
+apiVersion: kops.k8s.io/v1alpha2
+kind: InstanceGroup
+metadata:
+  labels:
+    kops.k8s.io/cluster: sfbank-blue.k8s.local
+  name: control-plane-ap-northeast-2c
+spec:
+  image: ami-0f491b955c27fd437
+  machineType: t4g.medium
+  maxSize: 1
+  minSize: 1
+  role: Master
+  subnets:
+  - public-ap-northeast-2c
+
+---
+# Worker 노드 - AZ a (x86_64)
+apiVersion: kops.k8s.io/v1alpha2
+kind: InstanceGroup
+metadata:
+  labels:
+    kops.k8s.io/cluster: sfbank-blue.k8s.local
+  name: nodes-ap-northeast-2a
+spec:
+  image: ami-0f88d8a142a97098e
+  machineType: t3a.large
+  maxSize: 2
+  minSize: 1
+  role: Node
+  subnets:
+  - private-ap-northeast-2a
+
+---
+# Worker 노드 - AZ c (x86_64)
+apiVersion: kops.k8s.io/v1alpha2
+kind: InstanceGroup
+metadata:
+  labels:
+    kops.k8s.io/cluster: sfbank-blue.k8s.local
+  name: nodes-ap-northeast-2c
+spec:
+  image: ami-0f88d8a142a97098e
+  machineType: t3a.large
+  maxSize: 2
+  minSize: 1
+  role: Node
+  subnets:
+  - private-ap-northeast-2c
+
+---
+# Spot Worker 노드 (x86_64 C-series 컴퓨팅 최적화)
+apiVersion: kops.k8s.io/v1alpha2
+kind: InstanceGroup
+metadata:
+  labels:
+    kops.k8s.io/cluster: sfbank-blue.k8s.local
+  name: spot-nodes-ap-northeast-2c
+spec:
+  image: ami-0f88d8a142a97098e
+  machineType: c5.large
+  maxSize: 6
+  minSize: 3
+  role: Node
+  subnets:
+  - private-ap-northeast-2c
+  mixedInstancesPolicy:
+    instances:
+    - c5.large
+    - c6i.large
+    - c7i.large
+    onDemandAboveBase: 0
+    onDemandBase: 0
+    spotAllocationStrategy: capacity-optimized
+  nodeLabels:
+    spot: "true"
+
+---
+# Observability 노드 (x86_64 + Taint)
+apiVersion: kops.k8s.io/v1alpha2
+kind: InstanceGroup
+metadata:
+  labels:
+    kops.k8s.io/cluster: sfbank-blue.k8s.local
+  name: observability-ap-northeast-2c
+spec:
+  image: ami-0f88d8a142a97098e
+  machineType: t3a.large
+  maxSize: 2
+  minSize: 1
+  role: Node
+  subnets:
+  - private-ap-northeast-2c
+  taints:
+  - "observability=true:NoSchedule"
+  nodeLabels:
+    observability: "true"
+
+---
+# Build 노드 (c7i.xlarge - 컴퓨팅 최적화)
+apiVersion: kops.k8s.io/v1alpha2
+kind: InstanceGroup
+metadata:
+  labels:
+    kops.k8s.io/cluster: sfbank-blue.k8s.local
+  name: build-ap-northeast-2c
+spec:
+  image: ami-0f88d8a142a97098e
+  machineType: c7i.xlarge
+  maxSize: 1
+  minSize: 1
+  role: Node
+  subnets:
+  - private-ap-northeast-2c
+  taints:
+  - "build=true:NoSchedule"
+  nodeLabels:
+    build: "true"

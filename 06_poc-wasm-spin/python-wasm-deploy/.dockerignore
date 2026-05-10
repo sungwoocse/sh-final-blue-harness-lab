@@ -1,0 +1,48 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+.venv/
+ENV/
+env/
+.pytest_cache/
+*.egg-info/
+dist/
+build/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Git
+.git/
+.gitignore
+
+# Docker
+Dockerfile
+.dockerignore
+
+# Documentation
+docs/
+*.md
+!README.md
+
+# Tests (optional - include if needed for testing in container)
+tests/
+
+# Examples
+examples/
+
+# Secrets (should be mounted at runtime)
+dockerhub-secret.txt
+kube-config
+
+# Temporary files
+*.log
+*.tmp
+.DS_Store

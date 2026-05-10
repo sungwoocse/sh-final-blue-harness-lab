@@ -1,0 +1,31 @@
+apiVersion: core.spinkube.dev/v1alpha1
+kind: SpinApp
+metadata:
+  name: simple-spinapp
+  namespace: default
+  labels: 
+    test: "11"
+    app.kubernetes.io/managed-by: blue-faas
+spec:
+  image: "ghcr.io/spinkube/containerd-shim-spin/examples/spin-rust-hello:v0.13.0"
+  executor: containerd-shim-spin
+  enableAutoscaling: true
+  podLabels: 
+    faas: "true"
+    spot-test: "true"
+  # SpinApp CRD에서 지원하지 않는 필드들 (spot=true일 때 문제 발생)
+  # tolerations와 affinity는 SpinApp CRD 스펙에 없음!
+  tolerations:
+  - key: spot
+    operator: Exists
+    effect: NoSchedule
+  affinity:
+    nodeAffinity:
+      preferredDuringSchedulingIgnoredDuringExecution:
+      - weight: 100
+        preference:
+          matchExpressions:
+          - key: spot
+            operator: In
+            values:
+            - "true"
